@@ -1,0 +1,39 @@
+spin_manifest_version = 2
+
+[application]
+authors = ["Adam Reese <adam@reese.io>"]
+description = ""
+name = "spin-ts-s3"
+version = "0.1.0"
+
+[variables]
+# access_key_id = { required = true }
+# secret_access_key = { required = true }
+access_key_id = { default = "" }
+secret_access_key = { default = "" }
+region = { default = "nl-ams-1" }
+endpoint = { default = "https://nl-ams-1.linodeobjects.com" }
+
+[[trigger.http]]
+route = "/..."
+component = "spin-ts-s3"
+
+[component.spin-ts-s3]
+source = "dist/spin-ts-s3.wasm"
+exclude_files = ["**/node_modules"]
+allowed_outbound_hosts = [
+  "https://raw.githubusercontent.com",
+  "http://*.s3.localhost.localstack.cloud:4566",
+  "http://s3.localhost.localstack.cloud:4566",
+  "https://*:*",
+]
+[component.spin-ts-s3.build]
+command = ["npm install", "npm run build"]
+watch = ["src/**/*.ts"]
+
+[component.spin-ts-s3.variables]
+access_key_id = "{{ access_key_id }}"
+secret_access_key = "{{ secret_access_key }}"
+region = "{{ region }}"
+endpoint = "{{ endpoint }}"
+
