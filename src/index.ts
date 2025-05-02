@@ -25,7 +25,7 @@ router.get('/stream/:file', async ({ file }) => {
       Key: file,
     }));
 
-  const sourceStream = getObjectResponse.Body as Readable;
+  const sourceStream = getObjectResponse.Body as ReadableStream;
 
   if (!sourceStream) throw new Error("Unable to get source object stream");
 
@@ -47,8 +47,13 @@ router.get('/stream/:file', async ({ file }) => {
   let buffer = Buffer.alloc(0);
   const partSize = 5 * 1024 * 1024;
 
-  for await (const chunk of sourceStream) {
-    buffer = Buffer.concat([buffer, chunk]);
+  let reader = sourceStream.getReader();
+
+  while ( true) {
+    const {done, value} = await reader.read()
+    if (done) break;
+
+    buffer = Buffer.concat([buffer, value]);
 
     while (buffer.length >= partSize) {
       const partBuffer = buffer.slice(0, partSize);
