@@ -16,8 +16,8 @@ router.get('/stream/:file', async ({ file }) => {
     },
   });
 
-  const sourceBucket = "lds-test-bucket-a"
-  const destinationBucket = "lds-test-bucket-b"
+  const sourceBucket = "test-bucket-a"
+  const destinationBucket = "test-bucket-b"
 
   let getObjectResponse = await client.send(
     new GetObjectCommand({
