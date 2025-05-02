@@ -7,10 +7,9 @@ let router = Router();
 
 router.get('/stream/:file', async ({ file }) => {
 
-  let region = Variables.get("region")!;
   let client = new S3Client({
-    region: region,
-    endpoint: "http://s3.localhost.localstack.cloud:4566",
+    region: Variables.get("region")!,
+    endpoint: Variables.get("endpoint")!,
     credentials: {
       accessKeyId: Variables.get("access_key_id")!,
       secretAccessKey: Variables.get("secret_access_key")!,
@@ -102,10 +101,9 @@ router.get('/stream/:file', async ({ file }) => {
 })
 
 router.get('/list/:bucket', async ({ bucket }) => {
-  let region = Variables.get("region")!;
   let client = new S3Client({
-    endpoint: "http://s3.localhost.localstack.cloud:4566",
-    region: region,
+    endpoint: Variables.get("endpoint")!,
+    region: Variables.get("region")!,
     credentials: {
       accessKeyId: Variables.get("access_key_id")!,
       secretAccessKey: Variables.get("secret_access_key")!,
@@ -122,8 +120,8 @@ router.get('/list/:bucket', async ({ bucket }) => {
 
 router.get('/buckets', async ({ }) => {
   let client = new S3Client({
-    endpoint: "http://s3.localhost.localstack.cloud:4566",
-    region: "eu1",
+    endpoint: Variables.get("endpoint")!,
+    region: Variables.get("region")!,
     credentials: {
       accessKeyId: Variables.get("access_key_id")!,
       secretAccessKey: Variables.get("secret_access_key")!,
