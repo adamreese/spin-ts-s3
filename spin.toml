@@ -11,8 +11,8 @@ version = "0.1.0"
 # secret_access_key = { required = true }
 access_key_id = { default = "" }
 secret_access_key = { default = "" }
-region = { default = "nl-ams-1" }
-endpoint = { default = "https://nl-ams-1.linodeobjects.com" }
+region = { default = "" }
+endpoint = { default = "" }
 
 [[trigger.http]]
 route = "/..."
@@ -36,4 +36,3 @@ access_key_id = "{{ access_key_id }}"
 secret_access_key = "{{ secret_access_key }}"
 region = "{{ region }}"
 endpoint = "{{ endpoint }}"
-

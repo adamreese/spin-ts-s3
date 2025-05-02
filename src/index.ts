@@ -104,7 +104,6 @@ router.get('/stream/:file', async ({ file }) => {
 router.get('/list/:bucket', async ({ bucket }) => {
   let region = Variables.get("region")!;
   let client = new S3Client({
-    // endpoint: "https://object.storage.eu01.onstackit.cloud",
     endpoint: "http://s3.localhost.localstack.cloud:4566",
     region: region,
     credentials: {
@@ -123,7 +122,6 @@ router.get('/list/:bucket', async ({ bucket }) => {
 
 router.get('/buckets', async ({ }) => {
   let client = new S3Client({
-    // endpoint: "https://object.storage.eu01.onstackit.cloud",
     endpoint: "http://s3.localhost.localstack.cloud:4566",
     region: "eu1",
     credentials: {
